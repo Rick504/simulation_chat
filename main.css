@@ -1,0 +1,141 @@
+body {
+  background-color: #bbb8b8;
+}
+
+/* .avatarAndLoading,
+#chat,
+#chatMsg {
+  border: 5px solid black;
+} */
+
+#resultName {
+  margin-left: 30rem;
+  display: flex;
+  justify-content: end;
+}
+
+.currentTime {
+  display: flex;
+  margin-left: 1rem;
+  align-items: end;
+}
+
+input {
+  border: 1px solid rgb(37, 147, 236);
+}
+
+#resultName {
+  margin-bottom: 1.2rem;
+}
+
+#resultName p {
+  margin-top: 0.5rem;
+}
+
+#chat {
+  display: flex;
+  justify-content: center;
+}
+
+#resultName,
+#chatMsg {
+  margin-top: 2%;
+  max-width: 40rem;
+  flex-wrap: wrap;
+}
+
+.balloon p,
+.balloon input,
+.balloon-inp {
+  padding: 3%;
+  border-radius: 15px 15px 15px 0;
+  background-color: aliceblue;
+  display: inline-flex;
+}
+
+.balloonClient,
+.btnOption {
+  background-color: rgb(55, 55, 238);
+  color: aliceblue;
+}
+
+.balloonClient {
+  display: inline-flex;
+  justify-content: end;
+  margin-top: 2rem;
+  border-radius: 15px 15px 0 15px;
+  padding: 2%;
+  color: aliceblue;
+}
+
+.avatarAndLoading {
+  display: flex;
+  width: 8%;
+  justify-content: end;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+#avatar {
+  display: none;
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 20%;
+}
+
+.showAvatar {
+  animation: downAvatar 300ms forwards ease-in-out;
+}
+
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  animation-fill-mode: both;
+  animation: bblFadInOut 1s infinite ease-in-out;
+}
+
+.loader {
+  color: #398fc9;
+  font-size: 3px;
+  transform: translateZ(0);
+  animation-delay: -0.16s;
+}
+
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+
+.loader:before {
+  left: -3.5em;
+  animation-delay: -0.32s;
+}
+
+.btnOption {
+}
+
+@keyframes bblFadInOut {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+
+@keyframes downAvatar {
+  from {
+    transform: translateY(-20%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
