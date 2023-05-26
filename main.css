@@ -1,74 +1,205 @@
+@import './base.css';
+
 body {
-  background-color: #bbb8b8;
+  font-family: 'Montserrat', sans-serif;
+  height: 100vh;
 }
 
-/* .avatarAndLoading,
-#chat,
-#chatMsg {
+a {
+  text-decoration: none;
+  color: var(--blue-dark-joov);
+}
+
+header {
+  background-color: var(--white);
+  display: flex;
+  justify-content: end;
+  height: 120px;
+}
+
+#container-steps {
+  background: linear-gradient(123.14deg, #edeeee -0.66%, #d8dfe7 83.47%);
+  height: 100rem;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  width: 1200px;
+  margin-right: 20px;
+}
+
+.links-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 25px;
+  width: 450px;
+}
+
+#icon-joov {
+  display: flex;
+  align-items: center;
+}
+
+#icon-joov img {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 130px;
+}
+
+.link-selected {
+  background-color: var(--green-joov);
+  padding: 0.7rem 4rem;
+  font-weight: 700;
+  border-radius: 15px;
+}
+
+/* .avatar-and-loading,
+#chat-balloons,
+#chat-msg {
   border: 5px solid black;
 } */
 
-#resultName {
-  margin-left: 30rem;
+.balloon {
+  display: flex;
+  align-items: end;
+}
+
+.response-client {
+  width: 1150px;
   display: flex;
   justify-content: end;
 }
 
-.currentTime {
-  display: flex;
-  margin-left: 1rem;
-  align-items: end;
+::placeholder {
+  color: #bdbcbc; /* Define a cor do texto do placeholder */
 }
 
 input {
+  width: 400px;
   border: 1px solid rgb(37, 147, 236);
 }
 
-#resultName {
-  margin-bottom: 1.2rem;
+input:focus {
+  outline: none;
+  border-color: #aaa;
+  box-shadow: 0 0 5px #aaa;
 }
 
-#resultName p {
-  margin-top: 0.5rem;
+.btn-option-white,
+.btn-option-blue-ligth,
+.btn-option-blue-dark {
+  border-radius: 25px;
 }
 
-#chat {
+.btn-option-white {
+  background-color: var(--white);
+  color: var(--blue-ligth-joov);
+}
+
+.btn-option-blue-ligth {
+  background-color: var(--blue-ligth-joov);
+}
+
+.btn-option-blue-dark {
+  background-color: var(--blue-dark-joov);
+}
+
+.btn-option-blue-dark,
+.btn-option-blue-ligth {
+  color: var(--white);
+  font-size: 20px;
+  font-weight: 700;
+  padding: 1rem 3rem;
+}
+
+.btn-option-blue-dark:hover,
+.btn-option-blue-ligth:hover {
+  opacity: 0.9;
+  color: var(--white);
+}
+
+.btn-option-blue-dark {
+  background-color: var(--blue-dark-joov);
+  color: var(--white);
+}
+
+.steps-chat {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  margin-left: 8%;
+  padding-top: 2%;
 }
 
-#resultName,
-#chatMsg {
+#chat-balloons {
+  display: flex;
+  justify-content: space-around;
+  width: 850px;
+}
+
+#chat-msg {
   margin-top: 2%;
   max-width: 40rem;
   flex-wrap: wrap;
 }
 
-.balloon p,
-.balloon input,
-.balloon-inp {
-  padding: 3%;
+.inputsSteps {
+  border-radius: 20px;
+  border: none;
+  padding: 1rem 2rem;
+  background-color: var(--white);
+}
+
+input,
+.balloon-client,
+.balloon p {
+  box-shadow: -6px 9px 22px 1px rgba(4, 44, 56, 0.192);
+  background-color: var(--balloon);
+  color: var(--text-balloon);
+  font-size: 21px;
+  line-height: 1.2;
+  letter-spacing: -0.9pt;
+}
+
+.balloon p {
+  padding: 2rem 3rem;
   border-radius: 15px 15px 15px 0;
-  background-color: aliceblue;
-  display: inline-flex;
+  width: 600px;
 }
 
-.balloonClient,
-.btnOption {
-  background-color: rgb(55, 55, 238);
-  color: aliceblue;
-}
-
-.balloonClient {
-  display: inline-flex;
-  justify-content: end;
+.balloon-client {
+  padding: 0.1rem 3rem;
+  background-color: var(--white);
   margin-top: 2rem;
   border-radius: 15px 15px 0 15px;
-  padding: 2%;
-  color: aliceblue;
+  display: flex;
 }
 
-.avatarAndLoading {
+.icon-view-msg-client {
+  position: relative;
+  top: 30px;
+  left: 40px;
+}
+
+.balloon-client p {
+  font-weight: bold;
+  margin: 17px 120px 17px -20px;
+}
+
+.icon-view-msg {
+  position: relative;
+  left: -40px;
+  top: -20px;
+}
+
+.icon-view-msg-client img,
+.icon-view-msg img {
+  width: 26px;
+}
+
+.avatar-and-loading {
   display: flex;
   width: 8%;
   justify-content: end;
@@ -77,15 +208,12 @@ input {
   flex-wrap: wrap;
 }
 
-#avatar {
-  display: none;
-  width: 2rem;
-  height: 2rem;
-  margin-bottom: 20%;
+.show-avatar {
+  animation: downAvatar 300ms forwards ease-in-out;
 }
 
-.showAvatar {
-  animation: downAvatar 300ms forwards ease-in-out;
+.hide-avatar {
+  display: none;
 }
 
 .loader:before,
@@ -114,9 +242,6 @@ input {
 .loader:before {
   left: -3.5em;
   animation-delay: -0.32s;
-}
-
-.btnOption {
 }
 
 @keyframes bblFadInOut {

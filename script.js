@@ -1,171 +1,203 @@
-const chatMsg = document.getElementById('chatMsg');
+const textSteps = {
+  stepApresentation: {
+    balloon1: `Olá! Meu nome é João e estou aqui para te ajudar`,
+    balloon2: `Farei algumas perguntas.`,
+    balloon3: 'Para começarmos, qual seu nome?',
+  },
 
-function currentTime() {
-  const current = new Date();
-  const hour = current.getHours().toString().padStart(2, '0');
-  const minutes = current.getMinutes().toString().padStart(2, '0');
-
-  const hourFormat = `${hour}:${minutes}`;
-  return hourFormat;
+  stepAskCity: {
+    balloon1: (str) => `Prazer ${str}! Em qual cidade você mora?`,
+  },
+};
+function addLoaderAvatar() {
+  document.querySelector('.avatar-and-loading').classList.add('show-avatar');
+  document.querySelector('.add-loader').classList.add('loader');
 }
 
-function getName() {
-  let getNameInp = document.getElementById('stepOneInp');
-  let sendData = document.querySelector('.sendData');
-  let resultName = document.getElementById('resultName');
-  const newDiv = `<div class="balloonClient">
-                    <p>${getNameInp.value}</p>
+function removeLoaderAvatar() {
+  setTimeout(() => {
+    document.querySelector('.add-loader').classList.remove('loader');
+    document
+      .querySelector('.avatar-and-loading')
+      .classList.remove('show-avatar');
+  }, 500);
+}
+
+function createBallonAvatar(text, chatStepId, scrollBoolean) {
+  const createDivStep = document.getElementById(chatStepId);
+
+  const createNewDiv = `
+    <div class="balloon">
+      <p>${text}</p>
+      <div class="icon-view-msg">
+        <img src="./imgs/message-viewed.png" alt="Icone que menssagem vizualizada">
+      </div>
+    </div>`;
+  createDivStep.insertAdjacentHTML('beforeend', createNewDiv);
+
+  if (scrollBoolean) {
+    const newDiv = createDivStep.lastElementChild;
+    newDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+}
+
+function createBallonInput(inputId, idCreateChat, nameCalledFunction) {
+  const createDivStep = document.getElementById(idCreateChat);
+  const newDiv = `
+  <div class="balloon-inp">
+      <input id="${inputId}" class="inputsSteps" type="text" placeholder="Digite seu nome">
+      <button type="button" class="btn send-data" onclick="${nameCalledFunction}('${inputId}')">
+          <img width="20" src="./imgs/send-data.png">
+      </button>
+  </div>
+  `;
+  createDivStep.insertAdjacentHTML('beforeend', newDiv);
+  document.querySelector(`#${inputId}`).focus();
+}
+
+function createButtonsOptions(
+  textOp1,
+  textOp2,
+  onClickFunc1,
+  onClickFunc2,
+  scrollBoolean
+) {
+  const createDivStep = document.getElementById('create-chat-step-two');
+  const newDiv = `
+  <div class="btn-options">
+    <button type="button" class="btn btn-option-blue-ligth" onclick="${onClickFunc1}()">
+        ${textOp1}
+    </button>
+    <button type="button" class="btn btn-option-blue-dark" onclick="${onClickFunc2}()">
+        ${textOp2}
+    </button>
+  </div>
+  `;
+  createDivStep.insertAdjacentHTML('beforeend', newDiv);
+
+  if (scrollBoolean) {
+    const newDiv = createDivStep.lastElementChild;
+    newDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+}
+
+function hideInput(element) {
+  const sendData = document.querySelector('.send-data');
+
+  element.parentNode.removeChild(element);
+  sendData.parentNode.removeChild(sendData);
+}
+
+function createBalloonClient(inputId) {
+  const getValueInp = document.getElementById(inputId);
+
+  const resultName = document.getElementById('result' + '-' + inputId);
+  var getValueInpUpdate =
+    getValueInp.value.charAt(0).toUpperCase() + getValueInp.value.slice(1);
+  const newDiv = `<div class="balloon-client">
+                    <p>${getValueInpUpdate}</p>
+                    <div class="icon-view-msg-client">
+                      <img src="./imgs/message-viewed.png" alt="Icone que menssagem vizualizada">
+                    </div>
                   </div>
-                  <div class="currentTime"> ${currentTime()} </div>
                   `;
   resultName.insertAdjacentHTML('beforeend', newDiv);
-  getNameInp.parentNode.removeChild(getNameInp);
-  sendData.parentNode.removeChild(sendData);
-  stepTwo(getNameInp.value);
+  return getValueInp;
 }
 
-// Etapa 1
-function stepOne() {
-  let balloonOneText = `Olá! Meu nome é Joov e estou aqui para encontrar o plano de saúde ideal para você. Tudo é bem rápido e seguro.`;
-  let balloonTwoText = `Farei algumas perguntas para saber qual o melhor plano para seu perfil e enviarei sua cotação.`;
-  let balloonThreeText = 'Para começarmos, qual seu nome?';
+function getName(inputId) {
+  let getValueInp = createBalloonClient(inputId);
+  hideInput(getValueInp);
+  stepAskCity(getValueInp.value);
+}
 
+function getCity(inputId) {
+  alert(inputId);
+}
+
+function pressEnterInput(inputId, nameCalledFunction) {
+  let getNameInp = document.getElementById(inputId);
+
+  getNameInp.addEventListener('keypress', function (event) {
+    if (event.key === 'Enter') {
+      nameCalledFunction(inputId);
+      event.preventDefault();
+    }
+  });
+}
+
+function showAvatar(nameClassAvatar) {
+  document.querySelector(nameClassAvatar).classList.remove('hide-avatar');
+}
+
+function stepApresentation() {
   // Balão 1
-  setTimeout(() => {
-    document.querySelector('#avatar').style.display = 'block';
-    document.querySelector('.avatarAndLoading').classList.add('showAvatar');
-    document.querySelector('.addLoader').classList.add('loader');
-    const newDiv = `<div class="balloon"> <p>${balloonOneText}</p> </div>`;
-    chatMsg.insertAdjacentHTML('beforeend', newDiv);
-
-    setTimeout(() => {
-      document.querySelector('.addLoader').classList.remove('loader');
-      document
-        .querySelector('.avatarAndLoading')
-        .classList.remove('showAvatar');
-    }, 500);
-  }, 1000);
+  addLoaderAvatar();
+  createBallonAvatar(
+    textSteps.stepApresentation.balloon1,
+    'create-chat-step-apresentation',
+    false
+  );
 
   // Balão 2
   setTimeout(() => {
-    document.querySelector('.avatarAndLoading').classList.add('showAvatar');
-    document.querySelector('.addLoader').classList.add('loader');
-    const newDiv = `<div class="balloon"> <p>${balloonTwoText}</p> </div>`;
-    chatMsg.insertAdjacentHTML('beforeend', newDiv);
-
-    setTimeout(() => {
-      document.querySelector('.addLoader').classList.remove('loader');
-      document
-        .querySelector('.avatarAndLoading')
-        .classList.remove('showAvatar');
-    }, 500);
+    addLoaderAvatar();
+    createBallonAvatar(
+      textSteps.stepApresentation.balloon2,
+      'create-chat-step-apresentation',
+      false
+    );
+    removeLoaderAvatar();
   }, 2000);
 
   // Balão 3
   setTimeout(() => {
-    document.querySelector('.avatarAndLoading').classList.add('showAvatar');
-    document.querySelector('.addLoader').classList.add('loader');
-    const newDiv = `
-                    <div class="balloon">
-                        <p> ${balloonThreeText} </p>
-                    </div>`;
-    chatMsg.insertAdjacentHTML('beforeend', newDiv);
-
-    setTimeout(() => {
-      document.querySelector('.addLoader').classList.remove('loader');
-      document
-        .querySelector('.avatarAndLoading')
-        .classList.remove('showAvatar');
-    }, 500);
+    addLoaderAvatar();
+    createBallonAvatar(
+      textSteps.stepApresentation.balloon3,
+      'create-chat-step-apresentation',
+      false
+    );
+    removeLoaderAvatar();
   }, 3000);
 
   // Balão 4 - Input
   setTimeout(() => {
-    document.querySelector('.avatarAndLoading').classList.add('showAvatar');
-    document.querySelector('.addLoader').classList.add('loader');
-    const newDiv = `
-                    <div class="balloon-inp">
-                        <input id="stepOneInp" type="text">
-                        <button type="button" class="btn sendData" onclick="getName()">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" x="3650" y="3688">
-                                <path fill="rgb(6, 110, 196)"
-                                    d="M1.1 21.757l22.7-9.73L1.1 2.3l.012 7.912 13.623 1.816-13.623 1.817-.01 7.912z"></path>
-                            </svg>
-                        </button>
-                      </div>
-                      <div id="resultName"></div>
-                    `;
-    chatMsg.insertAdjacentHTML('beforeend', newDiv);
+    addLoaderAvatar();
+    createBallonInput(
+      'inp-step-apresentation',
+      'create-chat-step-apresentation',
+      'getName'
+    );
 
-    setTimeout(() => {
-      document.querySelector('.addLoader').classList.remove('loader');
-      document
-        .querySelector('.avatarAndLoading')
-        .classList.remove('showAvatar');
-      document.querySelector('#stepOneInp').focus();
-    }, 500);
+    pressEnterInput('inp-step-apresentation', getName);
+
+    removeLoaderAvatar();
   }, 4000);
 }
 
-// Etapa 2
-function stepTwo(resultName) {
-  let balloonOneText = `Prazer ${resultName}! Escolher um plano de saúde pode gerar diversas dúvidas, não é mesmo?`;
-  let balloonTwoText = `Vamos conversar. Me conta um pouco sobre você e no final vou te enviar ótimas opções.`;
-
-  // Balão 1
-  setTimeout(() => {
-    document.querySelector('#avatar').style.display = 'block';
-    document.querySelector('.avatarAndLoading').classList.add('showAvatar');
-    document.querySelector('.addLoader').classList.add('loader');
-    const newDiv = `<div class="balloon"> <p>${balloonOneText}</p> </div>`;
-    chatMsg.insertAdjacentHTML('beforeend', newDiv);
-    // chatMsg.scrollIntoView();
-
-    setTimeout(() => {
-      document.querySelector('.addLoader').classList.remove('loader');
-      document
-        .querySelector('.avatarAndLoading')
-        .classList.remove('showAvatar');
-    }, 500);
-  }, 1000);
-
-  // Balão 2
-  setTimeout(() => {
-    document.querySelector('.avatarAndLoading').classList.add('showAvatar');
-    document.querySelector('.addLoader').classList.add('loader');
-    const newDiv = `<div class="balloon"> <p>${balloonTwoText}</p> </div>`;
-    chatMsg.insertAdjacentHTML('beforeend', newDiv);
-    // chatMsg.scrollIntoView();
-
-    setTimeout(() => {
-      document.querySelector('.addLoader').classList.remove('loader');
-      document
-        .querySelector('.avatarAndLoading')
-        .classList.remove('showAvatar');
-    }, 500);
-  }, 2000);
+function stepAskCity(clientName) {
+  showAvatar('#avatar-step-ask-city');
+  addLoaderAvatar();
+  createBallonAvatar(
+    textSteps.stepAskCity.balloon1(clientName),
+    'create-chat-step-ask-city',
+    true
+  );
 
   // Balão 4 - Input
   setTimeout(() => {
-    document.querySelector('.avatarAndLoading').classList.add('showAvatar');
-    document.querySelector('.addLoader').classList.add('loader');
-    const newDiv = `
-                    <div>
-                      <button class="btn btnOption" type="button">Vamos começar</button>
-                      <button class="btn btnOption" type="button">Me explique melhor</button>
-                    </div>
-                    `;
-    chatMsg.insertAdjacentHTML('beforeend', newDiv);
-    // chatMsg.scrollIntoView();
+    addLoaderAvatar();
+    createBallonInput(
+      'inp-step-ask-city',
+      'create-chat-step-ask-city',
+      'getCity'
+    );
 
-    setTimeout(() => {
-      document.querySelector('.addLoader').classList.remove('loader');
-      document
-        .querySelector('.avatarAndLoading')
-        .classList.remove('showAvatar');
-      document.querySelector('#stepTwoInp').focus();
-    }, 500);
-  }, 4000);
+    pressEnterInput('inp-step-ask-city', getCity);
+
+    removeLoaderAvatar();
+  }, 1000);
 }
 
-stepOne();
+stepApresentation();

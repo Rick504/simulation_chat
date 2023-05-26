@@ -12,20 +12,38 @@
 </head>
 
 <body>
-    <!-- Etapa 1 -->
-    <div id="chatStepOne">
-        <div id="chat">
-            <!-- Avatar -->
-            <div class="avatarAndLoading">
-                <img id="avatar" src="./imgs/avatar.png" alt="avatar">
-                <div class="addLoader"></div>
+    <div id="container-steps">
+        <!-- Etapa 1 -->
+        <div class="steps-chat">
+            <div id="chat-balloons">
+                <div class="avatar-and-loading">
+                    <img width="80" src="./imgs/avatar.png" alt="avatar">
+                    <div class="add-loader"></div>
+                </div>
+                <div id="create-chat-step-apresentation"></div>
             </div>
-            <!-- Content -->
-            <div id="chatMsg"></div>
+            <div class="inp-step"></div>
+            <div class="response-client">
+                <div id="result-inp-step-apresentation"></div>
+            </div>
         </div>
-    </div>
-    <!-- Etapa 1 -->
 
+        <!-- Etapa 2 -->
+        <div class="steps-chat">
+            <div id="chat-balloons">
+                <div class="avatar-and-loading">
+                    <img width="80" id="avatar-step-ask-city" class="hide-avatar" src="./imgs/avatar.png" alt="avatar">
+                    <div class="add-loader"></div>
+                </div>
+                <div id="create-chat-step-ask-city"></div>
+            </div>
+            <div class="inp-step"></div>
+            <div class="response-client">
+                <div id="result-inp-step-ask-city"></div>
+            </div>
+        </div>
+
+    </div>
     <script src="./script.js"></script>
 </body>
 
