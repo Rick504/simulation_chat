@@ -1,0 +1,57 @@
+body {
+  background-color: rgb(223, 223, 243);
+}
+
+header {
+  background-color: rgb(243, 248, 252);
+  display: flex;
+  align-items: center;
+  height: 7rem;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+}
+
+main .container,
+.avatar {
+  display: flex;
+  flex-direction: column;
+}
+
+main .container {
+  margin-top: 3rem;
+  width: 80%;
+}
+
+.group-ballon-avatar {
+  display: flex;
+}
+
+.avatar {
+  padding: 1rem 0;
+  width: 10%;
+}
+
+.ballon,
+.response {
+  background-color: aliceblue;
+  margin: 1rem 0;
+  border-radius: 20px;
+}
+
+.ballon {
+  padding: 1rem;
+  width: 50%;
+}
+
+.response {
+  padding: 0.1rem;
+  width: 30%;
+  margin-left: auto;
+}
+
+.hidden {
+  visibility: collapse;
+}
